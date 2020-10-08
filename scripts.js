@@ -7,6 +7,8 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
+
+
 // Functions
 function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
@@ -37,6 +39,7 @@ function scrub(e) {
 }
 
 
+
 // Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
@@ -57,8 +60,10 @@ progress.addEventListener('mouseup', () => mousedown = false);
 // Canvas Elements
 const canvas = document.querySelector('#video_canvas');
 const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+// const playerWidth = parseInt(player.offsetWidth);
+// console.log(playerWidth);
+canvas.width = 650;
+canvas.height = 315;
 ctx.strokeStyle = '#BADASS';
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
@@ -72,29 +77,24 @@ let direction = true;
 
 function draw(e) {
   if (!isDrawing) return;
-  ctx.strokeStyle = `hsl(${hue}, 100%, 50%)`;
   ctx.beginPath();
   ctx.moveTo(lastX, lastY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
   [lastX, lastY] = [e.offsetX, e.offsetY];
-  hue++;
-  if (hue >= 360) {
-    hue = 0;
-  }
-  if (ctx.lineWidth >= 100 || ctx.lineWidth <= 1) {
-    direction = !direction;
-  }
-  if (direction) {
-    ctx.lineWidth++;
-  } else {
-    ctx.lineWidth--;
-  }
+  ctx.lineWidth = 20;
 
 }
+
+function clearCanvas() {
+  const canvas = document.getElementById('video_canvas');
+  const ctx = canvas.getContext("2d");
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 canvas.addEventListener('mousedown', (e) => {
   isDrawing = true;
-  [lastX, lastY] = [e.offsetX, e.offsetY]
+  [lastX, lastY] = [e.offsetX, e.offsetY];
 });
 
 canvas.addEventListener('mousemove', draw);
