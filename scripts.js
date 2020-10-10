@@ -7,9 +7,8 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
-
-
 // Functions
+
 function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
   video[method]();
@@ -37,8 +36,6 @@ function scrub(e) {
   const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
   video.currentTime = scrubTime;
 }
-
-
 
 // Events
 video.addEventListener('click', togglePlay);
@@ -100,3 +97,31 @@ canvas.addEventListener('mousedown', (e) => {
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false);
 canvas.addEventListener('mouseout', () => isDrawing = false);
+
+
+// Voice Recognition
+
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.interimResults = true;
+recognition.lang = 'en-US';
+
+recognition.addEventListener('result', e => {
+  const transcript = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join('');
+
+
+
+  if (e.results[0].isFinal) {
+    console.log(e);
+    if (transcript.includes('play')) {
+      togglePlay();
+    }
+  }
+});
+
+recognition.addEventListener('end', recognition.start);
+
+recognition.start();
