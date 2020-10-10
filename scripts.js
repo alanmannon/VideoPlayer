@@ -7,7 +7,13 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
+window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+const recognition = new SpeechRecognition();
+recognition.interimResults = true;
+recognition.lang = 'en-US';
+
 // Functions
+
 function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
   video[method]();
@@ -35,6 +41,26 @@ function scrub(e) {
   const scrubTime = (e.offsetX / progress.offsetWidth) * video.duration;
   video.currentTime = scrubTime;
 }
+
+recognition.addEventListener('result', e => {
+  const transcript = Array.from(e.results)
+    .map(result => result[0])
+    .map(result => result.transcript)
+    .join('');
+
+
+
+  if (e.results[0].isFinal) {
+    console.log(e);
+    if (transcript.includes('play')) {
+      togglePlay();
+    }
+  }
+});
+
+recognition.addEventListener('end', recognition.start);
+
+recognition.start();
 
 // Events
 video.addEventListener('click', togglePlay);
