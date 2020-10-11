@@ -12,20 +12,47 @@
 
 </head>
 <body>
-  <div class="nav"></div>
-  <button id="upload_widget" class="cloudinary-button">Upload files</button>
+  <div class="nav">
+    <h1 class="logo"><strong>PRO</strong>PLAYER</h1>
+    <div class="button-container">
+      <a><icon class="material-icons">movie</icon><span>Library</span></a>
+      <a><icon class="material-icons">playlist_play</icon><span>Playlist</span></a>
+    <a id="upload_widget"><icon class="material-icons">publish</icon><span>Upload</span></a>
+    </div>
+  </div>
+
+  <!-- Cloudinary Button -->
+  <!-- <button id="upload_widget" class="cloudinary-button">Upload files</button> -->
 
   <!-- <p  id="demo"></p>
   <img id="videoinfo"></img> -->
+
+  <!-- TOOLBAR -->
   <div class="toolbar">
-    <div class="tool-button" id="button-color">
+    <div class="tool-section" id="tool-color">
       <p>color</p>
       <icon class="material-icons">palette</icon>
-      <button class="color-button"></button>
+      <button class="button-color"></button>
     </div>
-    <div class="tool-button" id="button-size"></div>
-    <div class="tool-button" id="button-reset"></div>
-    <div class="tool-button" id="button-voice"></div>
+    <div class="tool-section" id="tool-size">
+    <p>SIZE</p>
+      <icon class="material-icons">create</icon>
+      <input type="number"></input>
+    </div>
+    <div class="tool-section" id="tool-reset">
+      <p>reset</p>
+      <button class="button-reset" onclick="clearCanvas()">
+        <icon class="material-icons">
+          cached
+        </icon>
+      </button>
+    </div>
+    <div class="tool-section" id="tool-voice">
+      <p>voice</p>
+      <button class="button-voice">
+        <icon class="material-icons">mic</icon>
+      </button>
+    </div>
   </div>
 
   <div class="player">
@@ -43,9 +70,9 @@
       <button data-skip="25" class="player__button">25s »</button>
     </div>
   </div>
-  <div class="clearbutton">
+  <!-- <div class="clearbutton">
     <button onclick="clearCanvas()">Clear</button>
-  </div>
+  </div> -->
   <script 
     src="scripts.js"></script>
 
