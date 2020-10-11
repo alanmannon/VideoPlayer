@@ -132,7 +132,7 @@ recognition.start();
 document.cookie = "name=john";
 
 function parseArray(array) {
-  finalarray = []
+  var finalarray = [];
   if (urlNumber === 1) {
     finalarray.push(JSON.parse(array));
   } else if (urlNumber > 1) {
@@ -198,14 +198,19 @@ document.getElementById("upload_widget").addEventListener("click", function () {
   myWidget.open();
 }, false);
 
-//render data on html page
+
+//Sets some pieces of DATA into a called cookieKeys
 if (data == true) {
   var cookieKeys = {
     "url": data[0].url,
     "thumbnail": data[0].thumbnail_url,
   }
+  //this sets the img tag with id 'videoinfo' to have a source = to thumbnail url, resulting in an image showing!
   document.getElementById("videoinfo").src = cookieKeys.thumbnail;
 }
 
+//Renders DATA into the div with ID: Demo
 var readCookie = document.cookie.split(';').map(cookie => cookie.split('='));
+
+//This line takes the 
 document.getElementById("demo").innerHTML = readCookie;
