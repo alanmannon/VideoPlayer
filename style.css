@@ -7,21 +7,183 @@ html {
 }
 
 body {
+  font-family: "Montserrat", sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   background: #7A419B;
   min-height: 100vh;
-  background: linear-gradient(135deg, #7c1599 0%,#921099 48%,#7e4ae8 100%);
+  background: linear-gradient(135deg, #3f4245 0%,#44494d 48%,#5b5b5b 100%);
   background-size: cover;
   align-items: center;
   justify-content: center;
 }
 
+.nav {
+  display: flex;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 8rem;
+  background-color: rgb(38, 38, 38);
+  border-bottom: 1px solid;
+  border-image: linear-gradient(45deg, rgb(43, 43, 43) 0%, rgb(157, 157, 157) 50%, rgb(43, 43, 43) 100%) 1;
+  box-shadow: 0 10px 30px 4px rgba(0, 0, 0, 0.351);
+  align-items: center;
+}
+
+.nav > h1 {
+  color: lightgray;
+  font-weight: 400;
+  margin-left: 4rem;
+  text-shadow: 2px 9px 10px rgba(255, 255, 255, 0.194);
+}
+
+.nav strong {
+  color: greenyellow;
+  text-shadow: 2px 9px 10px rgba(87, 255, 53, 0.454);
+}
+
+.button-container {
+  width: 100%;
+  text-align: right;
+  /* background-color: gray; */
+  display: inline-block;
+  position: fixed;
+  margin-right: 0;
+}
+
+.nav a {
+  display: inline-block;
+  margin-right: 2rem;
+  padding: 2rem;
+  text-align: center;
+  color: lightgray;
+  text-transform: uppercase;
+  font-size: 0.7em;
+  font-weight: 500;
+  width: 4rem;
+  box-sizing: unset;
+  cursor: pointer;
+}
+
+.nav a > icon {
+  padding-top: 1.2rem;
+  vertical-align: bottom;
+  clear: right;
+  display: inline-block;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.nav a > span {
+  width: 4rem;
+  display: inline-block;
+  text-align: center;
+}
+
+.nav a:hover {
+  color: rgb(82, 244, 87) !important;
+  transition: 0.2s ease-out;
+}
+
+/* .nav a > icon:focus,
+.nav a > icon:active {
+} */
+
+.toolbar {
+  display: block;
+  background-color: rgb(46, 46, 46);
+  width: 7rem;
+  padding: 1rem 0.75rem 2rem 0.75rem;
+  height: 39rem;
+  margin-right: 3rem;
+  border-radius: 7px;
+  box-shadow: 0 30px 40px -5px rgba(0, 0, 0, 0.351);
+  align-content: center;
+  justify-content: center;
+  border: 0.5px dotted #6a6a6a;
+}
+
+.toolbar p {
+  color: gray;
+  text-align: center; 
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 0.7em;
+  letter-spacing: 0.25em;
+}
+
+
+.tool-section{
+  display: block;
+  text-align: center;
+  height: 25%; 
+}
+
+.tool-section > icon {
+  display: block;
+  text-align: center;
+  color: gray;
+  margin-bottom: 1rem;
+}
+
+
+
+.tool-section > button {
+  display: block;
+  margin: 0 auto;
+  border-radius: 4px;
+  border-style: none;
+  height: 60px;
+  width: 60px;
+  color: #9d9d9d;
+  background-color: #414141;
+  cursor: pointer;
+}
+
+.tool-section > button:hover {
+  background-color: rgb(121, 121, 121) !important;
+  transition: 0.3s ease-out;
+}
+
+.tool-section > button:active {
+  background-color: rgb(213, 213, 213) !important;
+}
+
+.tool-section > button:focus {
+  outline-style: none;
+}
+
+.tool-section > input:focus {
+  outline-style: none;
+}
+
+.button-color { 
+  height: 40px !important;
+  width: 40px !important;
+  background-color: red !important;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+.button-voice:focus { 
+  background-color: rgb(218, 218, 218) !important;
+}
+
+#tool-size > input {
+  max-width: 55px;
+  background-color: rgb(79, 79, 79);
+  color: #c4c4c4;
+  border: none;
+  border-radius: 3px;
+  line-height: 2em;
+}
+
 .player {
   max-width: 750px;
-  border: 5px solid rgba(0,0,0,0.2);
-  box-shadow: 0 0 20px rgba(0,0,0,0.2);
+  /* border: 5px solid rgba(0,0,0,0.2); */
+  box-shadow: 0 22px 40px -10px rgba(0, 0, 0, 0.434);
   position: relative;
   font-size: 0;
   overflow: hidden;
