@@ -116,9 +116,12 @@ recognition.addEventListener('result', e => {
 
   if (e.results[0].isFinal) {
     console.log(e);
-    if (transcript.includes('play')) {
+    if (transcript.includes('toggle play')) {
       togglePlay();
     }
+  }
+  else if (transcript.includes('srub')) {
+    scrub();
   }
 });
 
