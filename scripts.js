@@ -63,13 +63,12 @@ const ctx = canvas.getContext('2d');
 
 canvas.width = 650;
 canvas.height = 315;
-// ctx.strokeStyle = '255, 255, 0';
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.globalCompositeOperation = 'multiply';
 
 let colorIndex = 0;
-const colors = ['black', 'red', 'blue', 'yellow'];
+const colors = ['red', 'black', 'blue', 'yellow'];
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
@@ -116,19 +115,20 @@ function colorChanger() {
   if (colorIndex < 3) {
     colorIndex++;
     currentColor = colors[colorIndex];
-    console.log(colorIndex);
+    ctx.strokeStyle = currentColor;
     (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
 
   } else {
     colorIndex = 0;
     currentColor = colors[colorIndex];
-    console.log(colorIndex);
+    ctx.strokeStyle = currentColor;
     (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
   }
 }
 
 function lineChange() {
   lineSize = this.value;
+  ctx.lineWidth = lineSize;
 }
 
 // Voice Recognition
