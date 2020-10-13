@@ -85,6 +85,7 @@ function draw(e) {
   ctx.stroke();
   ctx.strokeStyle = currentColor;
   [lastX, lastY] = [e.offsetX, e.offsetY];
+  ctx.lineWidth = 20;
   ctx.lineWidth = lineSize;
 
 }
@@ -103,6 +104,33 @@ canvas.addEventListener('mousedown', (e) => {
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false);
 canvas.addEventListener('mouseout', () => isDrawing = false);
+
+//Canvas Stroke Elements
+document.getElementById("color-picker").onclick = colorChanger;
+document.getElementById("line-size").onchange = lineChange;
+
+
+function colorChanger() {
+  if (colorIndex < 3) {
+    colorIndex++;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+
+  } else {
+    colorIndex = 0;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+  }
+}
+
+function lineChange() {
+  lineSize = this.value;
+  ctx.lineWidth = lineSize;
+}
+
+
 
 
 
@@ -151,9 +179,12 @@ recognition.addEventListener('result', e => {
 
   if (e.results[0].isFinal) {
     console.log(e);
-    if (transcript.includes('play')) {
+    if (transcript.includes('toggle play')) {
       togglePlay();
     }
+  }
+  else if (transcript.includes('srub')) {
+    scrub();
   }
 });
 
@@ -164,88 +195,89 @@ recognition.start();
 
 
 // COOKIES LIBRARY
-document.cookie = "name=john";
+// document.cookie = "path=/";
 
-function parseArray(array) {
-  var finalarray = [];
-  if (urlNumber === 1) {
-    finalarray.push(JSON.parse(array));
-  } else if (urlNumber > 1) {
-    for (var i = 0; i < array.length; i++) {
-      finalarray.push(JSON.parse(`${array[i]}`));
-    }
-  }
-  return finalarray;
-}
-
-
-function findData() {
-  if (urlNumber === 1) {
-    console.log("1st");
-    var videoArray = previousCookie.substring(4);
-  } else if (urlNumber > 1) {
-    console.log("2nd");
-    var videoArray = (previousCookie.substring(4)).split(', ');
-  }
-  return parseArray(videoArray);
-}
+// function parseArray(array) {
+//   var finalarray = [];
+//   if (urlNumber === 1) {
+//     finalarray.push(JSON.parse(array));
+//   } else if (urlNumber > 1) {
+//     for (var i = 0; i < array.length; i++) {
+//       finalarray.push(JSON.parse(`${array[i]}`));
+//     }
+//   }
+//   return finalarray;
+// }
 
 
-//Begin on Page Load, Find Data from previous cookie. 
-var previousCookie = document.cookie.split('; ').find(row => row.startsWith('url'));
-if (previousCookie != undefined) {
-  var urlNumber = previousCookie.match(/"url":/g).length;
-  console.log("# of Items", urlNumber);
-} else {
-  urlNumber = 0;
-}
+// function findData() {
+//   if (urlNumber === 1) {
+//     console.log("1st");
+//     var videoArray = previousCookie.substring(4);
+//   } else if (urlNumber > 1) {
+//     console.log("2nd");
+//     var videoArray = (previousCookie.substring(4)).split(', ');
+//   }
+//   return parseArray(videoArray);
+// }
+
+
+// //Begin on Page Load, Find Data from previous cookie. 
+// var previousCookie = document.cookie.split('; ').find(row => row.startsWith('url'));
+// if (previousCookie != undefined) {
+//   var urlNumber = previousCookie.match(/"url":/g).length;
+//   console.log("# of Items", urlNumber);
+// } else {
+//   urlNumber = 0;
+// }
 
 
 
 
-//Turns Cookie Data into Object
-const data = findData();
-console.log("PREVIOUS:", previousCookie);
-console.log("DATA:", data);
+// //Turns Cookie Data into Object
+// const data = findData();
+// console.log("PREVIOUS:", previousCookie);
+// console.log("DATA:", data);
 
-//Cloudinary Widget
-var myWidget = cloudinary.createUploadWidget({
-  cloudName: 'dzi01cqjq',
-  uploadPreset: 'w5ixakcl'
-}, (error, result) => {
-  if (!error && result && result.event === "success") {
-    if (previousCookie === undefined) {
-      //First Upload
-      document.cookie = "url=" + JSON.stringify(result.info);
-    } else if (previousCookie != undefined) {
-      //Subsequent uploads
-      var newCookie = previousCookie + ", " + JSON.stringify(result.info);
-      document.cookie = newCookie;
-      console.log("Added to original cookies");
+// //Cloudinary Widget
+// var myWidget = cloudinary.createUploadWidget({
+//   cloudName: 'dzi01cqjq',
+//   uploadPreset: 'w5ixakcl'
+// }, (error, result) => {
+//   if (!error && result && result.event === "success") {
+//     if (previousCookie === undefined) {
+//       //First Upload
+//       document.cookie = "url=" + JSON.stringify(result.info);
+//     } else if (previousCookie != undefined) {
+//       //Subsequent uploads
+//       var newCookie = previousCookie + ", " + JSON.stringify(result.info);
+//       document.cookie = newCookie;
 
-    }
-    console.log('Done! Here is the image info: ', result.info);
-    console.log('Cookie is:', document.cookie);
-  }
-})
+//       console.log("Added to original cookies");
 
-document.getElementById("upload_widget").addEventListener("click", function () {
-  myWidget.open();
-}, false);
+//     }
+//     console.log('Done! Here is the image info: ', result.info);
+//     console.log('Cookie is:', document.cookie);
+//   }
+// })
+
+// document.getElementById("upload_widget").addEventListener("click", function () {
+//   myWidget.open();
+// }, false);
 
 
-//Sets some pieces of DATA into a called cookieKeys
-if (data == true) {
-  var cookieKeys = {
-    "url": data[0].url,
-    "thumbnail": data[0].thumbnail_url,
-  }
-  //this sets the img tag with id 'videoinfo' to have a source = to thumbnail url, resulting in an image showing!
-  document.getElementById("videoinfo").src = cookieKeys.thumbnail;
-}
+// //Sets some pieces of DATA into a called cookieKeys
+// if (data == true) {
+//   var cookieKeys = {
+//     "url": data[0].url,
+//     "thumbnail": data[0].thumbnail_url,
+//   }
+//   //this sets the img tag with id 'videoinfo' to have a source = to thumbnail url, resulting in an image showing!
+//   document.getElementById("video-thumbnail").src = cookieKeys.thumbnail;
+// }
 
-//Renders DATA into the div with ID: Demo
-var readCookie = document.cookie.split(';').map(cookie => cookie.split('='));
+// //Renders DATA into the div with ID: Demo
+// var readCookie = document.cookie.split(';').map(cookie => cookie.split('='));
 
-//This line takes the 
-document.getElementById("demo").innerHTML = readCookie;
+// //This line takes the 
+// document.getElementById("demo").innerHTML = readCookie;
