@@ -61,16 +61,19 @@ const ctx = canvas.getContext('2d');
 // console.log(playerWidth);
 canvas.width = 650;
 canvas.height = 315;
-ctx.strokeStyle = '#BADASS';
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.globalCompositeOperation = 'multiply';
 
+let colorIndex = 0;
+const colors = ['red', 'black', 'blue', 'yellow'];
 let isDrawing = false;
 let lastX = 0;
 let lastY = 0;
-let hue = 0;
+let hue = 1;
 let direction = true;
+let currentColor = colors[0];
+let lineSize = 20;
 
 function draw(e) {
   if (!isDrawing) return;
@@ -78,8 +81,10 @@ function draw(e) {
   ctx.moveTo(lastX, lastY);
   ctx.lineTo(e.offsetX, e.offsetY);
   ctx.stroke();
+  ctx.strokeStyle = currentColor;
   [lastX, lastY] = [e.offsetX, e.offsetY];
   ctx.lineWidth = 20;
+  ctx.lineWidth = lineSize;
 
 }
 
@@ -97,6 +102,33 @@ canvas.addEventListener('mousedown', (e) => {
 canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false);
 canvas.addEventListener('mouseout', () => isDrawing = false);
+
+//Canvas Stroke Elements
+document.getElementById("color-picker").onclick = colorChanger;
+document.getElementById("line-size").onchange = lineChange;
+
+
+function colorChanger() {
+  if (colorIndex < 3) {
+    colorIndex++;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+
+  } else {
+    colorIndex = 0;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+  }
+}
+
+function lineChange() {
+  lineSize = this.value;
+  ctx.lineWidth = lineSize;
+}
+
+
 
 
 // Voice Recognition
@@ -189,7 +221,7 @@ recognition.start();
 //       //Subsequent uploads
 //       var newCookie = previousCookie + ", " + JSON.stringify(result.info);
 //       document.cookie = newCookie;
-    
+
 //       console.log("Added to original cookies");
 
 //     }

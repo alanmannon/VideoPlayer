@@ -3,19 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <title>HTML Video Player</title>
-  <link rel="stylesheet" href="style.css">
+  
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
-
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
-
+  <link rel="stylesheet" href="media.css">
 </head>
 <body>
   <div class="nav">
     <h1 class="logo"><strong>PRO</strong>PLAYER</h1>
     <div class="button-container">
-      <a><icon class="material-icons">movie</icon><span>Library</span></a>
+      <a href="library.html"><icon class="material-icons">movie</icon><span>Library</span></a>
       <a><icon class="material-icons">playlist_play</icon><span>Playlist</span></a>
     <a id="upload_widget"><icon class="material-icons">publish</icon><span>Upload</span></a>
     </div>
@@ -32,12 +31,12 @@
     <div class="tool-section" id="tool-color">
       <p>color</p>
       <icon class="material-icons">palette</icon>
-      <button class="button-color"></button>
+      <button class="button-color" id="color-picker"></button>
     </div>
     <div class="tool-section" id="tool-size">
     <p>SIZE</p>
       <icon class="material-icons">create</icon>
-      <input type="number"></input>
+      <input type="range" min="1" max="50" value="25" step="5" class="slider" id="line-size" />
     </div>
     <div class="tool-section" id="tool-reset">
       <p>reset</p>
@@ -52,6 +51,7 @@
       <button class="button-voice">
         <icon class="material-icons">mic</icon>
       </button>
+      
     </div>
   </div>
 
@@ -79,10 +79,7 @@
     <script
     src="scripts-cookie.js"></script>
 
-<script type="text/javascript">
 
-</script>
-</script>
 
 
     

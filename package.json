@@ -10,5 +10,8 @@
   "license": "ISC",
   "devDependencies": {
     "browser-sync": "^2.12.5 <2.23.2"
+  },
+  "dependencies": {
+    "http-server": "^0.12.3"
   }
 }
