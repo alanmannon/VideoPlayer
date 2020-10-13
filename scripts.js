@@ -1,4 +1,4 @@
-// Elements
+// Video Elements
 const player = document.querySelector('.player');
 const video = player.querySelector('.viewer');
 const progress = player.querySelector('.progress');
@@ -130,6 +130,9 @@ function lineChange() {
   lineSize = this.value;
   ctx.lineWidth = lineSize;
 }
+
+// Video Hotkeys
+
 
 // Voice Recognition
 
