@@ -1,4 +1,4 @@
-// Elements
+// Video Elements
 const player = document.querySelector('.player');
 const video = player.querySelector('.viewer');
 const progress = player.querySelector('.progress');
@@ -7,7 +7,7 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 
-// Functions
+// Video Functions
 
 function togglePlay() {
   const method = video.paused ? 'play' : 'pause';
@@ -37,7 +37,7 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
-// Events
+// Video Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
@@ -59,6 +59,8 @@ const canvas = document.querySelector('#video_canvas');
 const ctx = canvas.getContext('2d');
 // const playerWidth = parseInt(player.offsetWidth);
 // console.log(playerWidth);
+
+
 canvas.width = 650;
 canvas.height = 315;
 ctx.lineJoin = 'round';
@@ -129,6 +131,35 @@ function lineChange() {
 }
 
 
+
+
+
+//Canvas Stroke Elements
+document.getElementById("color-picker").onclick = colorChanger;
+document.getElementById("line-size").onchange = lineChange;
+
+
+function colorChanger() {
+  if (colorIndex < 3) {
+    colorIndex++;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+
+  } else {
+    colorIndex = 0;
+    currentColor = colors[colorIndex];
+    ctx.strokeStyle = currentColor;
+    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
+  }
+}
+
+function lineChange() {
+  lineSize = this.value;
+  ctx.lineWidth = lineSize;
+}
+
+// Video Hotkeys
 
 
 // Voice Recognition

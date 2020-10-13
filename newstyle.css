@@ -114,7 +114,6 @@ body {
   letter-spacing: 0.25em;
 }
 ​
-​
 .tool-section {
   display: block;
   text-align: center;
@@ -140,7 +139,7 @@ body {
   background-color: #414141;
   cursor: pointer;
 }
-​
+
 .tool-section > button {
   display: block;
   margin: 0 auto;
