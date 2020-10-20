@@ -130,35 +130,6 @@ function lineChange() {
   ctx.lineWidth = lineSize;
 }
 
-
-
-
-
-//Canvas Stroke Elements
-document.getElementById("color-picker").onclick = colorChanger;
-document.getElementById("line-size").onchange = lineChange;
-
-
-function colorChanger() {
-  if (colorIndex < 3) {
-    colorIndex++;
-    currentColor = colors[colorIndex];
-    ctx.strokeStyle = currentColor;
-    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
-
-  } else {
-    colorIndex = 0;
-    currentColor = colors[colorIndex];
-    ctx.strokeStyle = currentColor;
-    (document.getElementById("color-picker").style.backgroundColor = colors[colorIndex]);
-  }
-}
-
-function lineChange() {
-  lineSize = this.value;
-  ctx.lineWidth = lineSize;
-}
-
 // Video Hotkeys
 
 
