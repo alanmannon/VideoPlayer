@@ -186,7 +186,7 @@ body {
   border-radius: 3px;
   line-height: 2em;
   margin-top: 2rem;
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
 }
 
 #tool-reset {
@@ -288,6 +288,16 @@ body {
   background-color: transparent;
 }
 
+/* PLAYLIST ​ */
+.playlist-container {
+  margin-left: 6rem;
+  padding: 0rem rem;
+  display: block;
+  background-color: rgb(93, 120, 97);
+  color: white;
+  width: 300px;
+  height: 700px;
+}
 
 
 /* unholy css to style input type="range" */

@@ -56,7 +56,7 @@ var myWidget = cloudinary.createUploadWidget({
       //Subsequent uploads
       var newCookie = previousCookie + ", " + JSON.stringify(result.info);
       document.cookie = newCookie;
-    
+
       console.log("Added to original cookies");
 
     }
@@ -73,16 +73,10 @@ document.getElementById("upload_widget").addEventListener("click", function () {
 //Sets some pieces of DATA into a called cookieKeys
 // if (data === true) {
 var thumbnailString = "";
-data.forEach(function(index) {
+data.forEach(function (index) {
   thumbnailString += `<img src=${index.thumbnail_url} href=${index.url}></img>`;
 });
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
-  
-
-
-
-
-
 
 
 //this sets the img tag with id 'videoinfo' to have a source = to thumbnail url, resulting in an image showing!
@@ -94,3 +88,29 @@ document.getElementById("thumbnail-container").innerHTML = thumbnailString;
 
 //This line takes the 
 // document.getElementById("demo").innerHTML = cookieKeys;
+
+
+//PLAYLIST
+
+function addToPlaylist(thumnailUrl, playlistName) {
+  var playlistArray = [];
+  var entry = data.find(video => video["thumbnail_url"] === thumnailUrl);
+  entry["playlistName"] = playlistName;
+  playlistArray.push(entry);
+  //if there are no playlists before... 
+  if (previousPlaylist() === undefined) {
+    document.cookie = "playlist=" + playlistArray;
+  } else {
+    document.cookie = document.cookie + playlistArray;
+  }
+}
+
+function previousPlaylist() {
+  var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+  return previousPlaylist;
+}
+
+// var mySubString = document.cookie.substring(
+//   document.cookie.lastIndexOf("playlist") + 1,
+//   document.cookie.lastIndexOf(";")
+// );
