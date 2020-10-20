@@ -78,9 +78,24 @@ data.forEach(function(index) {
 });
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
   
+//PLAYLIST CODE
+function addToPlaylist(thumnailUrl, playlistName) {
+  var playlistArray = [];
+  var entry = data.find(video => video["thumbnail_url"] === thumnailUrl);
+  entry["playlistName"] = playlistName;
+  playlistArray.push(entry);
+  //if there are no playlists before... 
+  if (previousPlaylist() === undefined) {
+    document.cookie = "playlist=" + playlistArray;
+  } else {
+    document.cookie = document.cookie + playlistArray;
+  }
+}
 
-
-
+function previousPlaylist() {
+  var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+  return previousPlaylist;
+}
 
 
 
