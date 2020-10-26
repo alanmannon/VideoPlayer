@@ -56,7 +56,7 @@ var myWidget = cloudinary.createUploadWidget({
       //Subsequent uploads
       var newCookie = previousCookie + ", " + JSON.stringify(result.info);
       document.cookie = newCookie;
-    
+
       console.log("Added to original cookies");
 
     }
@@ -73,23 +73,29 @@ document.getElementById("upload_widget").addEventListener("click", function () {
 //Sets some pieces of DATA into a called cookieKeys
 // if (data === true) {
 var thumbnailString = "";
-data.forEach(function(index) {
-  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url}></img>`;
+data.forEach(function (index) {
+  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} style="width: 600;margin: 20px;"></img><input id="clickMe" type="button" value="clickme" onclick="addToPlaylist('${index.thumbnail_url}');" />`;
 });
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
-  
+
+
+
+var playlistArray = [];
+
+
 //PLAYLIST CODE
-function addToPlaylist(thumnailUrl, playlistName) {
-  var playlistArray = [];
-  var entry = data.find(video => video["thumbnail_url"] === thumnailUrl);
-  entry["playlistName"] = playlistName;
-  playlistArray.push(entry);
+function addToPlaylist(thumbnailUrl) {
+  var entry = data.find(video => video["thumbnail_url"] === thumbnailUrl);
+  // entry["playlistName"] = playlistName;
+
+  playlistArray.push(JSON.stringify(entry));
+  console.log(playlistArray);
   //if there are no playlists before... 
-  if (previousPlaylist() === undefined) {
-    document.cookie = "playlist=" + playlistArray;
-  } else {
-    document.cookie = document.cookie + playlistArray;
-  }
+  // if (previousPlaylist() === undefined) {
+  document.cookie = "playlist=" + playlistArray;
+  // } else {
+  //   document.cookie = document.cookie + playlistArray;
+  // }
 }
 
 function previousPlaylist() {
@@ -97,6 +103,20 @@ function previousPlaylist() {
   return previousPlaylist;
 }
 
+var previousPlaylistCookie = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+
+function findPlaylist() {
+  // if (urlNumber === 1) {
+  //   console.log("1st");
+  //   var videoArray = previousCookie.substring(4);
+  // } else if (urlNumber > 1) {
+  var playlistArray = (previousPlaylistCookie.substring(4)).split(', ');
+  // }
+  return parseArray(playlistArray);
+}
+
+var playlist = findPlaylist();
+document.getElementById("playlist").innerHTML = playlistArray;
 
 
 
