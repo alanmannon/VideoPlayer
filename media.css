@@ -233,7 +233,25 @@ body {
   padding: 0;
   cursor: pointer;
   max-width: 50px;
+  width: 20px;
+  height: 20px;
 }
+
+.player__volume {
+  background: none; 
+  border: 0; 
+  line-height: 1; 
+  color: white;
+  text-align: center;
+  outline: 0; 
+  padding: 0;
+  padding-top: 3px;
+  /* cursor: pointer; */
+  max-width: 40px;
+  width: 20px;
+  height: 20px;
+  filter: invert(100%) sepia(0%) saturate(0%) hue-rotate(50deg) brightness(102%) contrast(102%);
+} 
 
 .player__button:focus {
   border-color: #ffc600;
@@ -282,17 +300,21 @@ body {
   width: 50%;
   background: #ffc600;
   flex: 0;
-  flex-basis: 50%;
+  flex-basis: .1%;
 }
 
 .canvas {
   width: 100%;
-  height: 85%;
+  /* height: 91%; */
   position: absolute;
   z-index: 10;
-  background-color: transparent;
+  background-color: red;
 }
 
+.volume_icon {
+  width: 20px;
+  height: 20px;
+}
 
 
 /* unholy css to style input type="range" */
