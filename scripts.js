@@ -60,9 +60,23 @@ const ctx = canvas.getContext('2d');
 // const playerWidth = parseInt(player.offsetWidth);
 // console.log(playerWidth);
 
+// let v = document.getElementById("video_player");
 
-canvas.width = 650;
-canvas.height = 315;
+window.addEventListener("resize", ev => {
+  let w = canvas.getBoundingClientRect().width;
+  let h = (video.getBoundingClientRect().height);
+  console.log(w, h);
+
+  // if (w && h) {
+  //   video.style.width = w;
+  //   video.style.height = h;
+  // }
+}, false);
+
+// canvas.width = this.w || canvas.getBoundingClientRect().width;
+// canvas.height = this.h || video.getBoundingClientRect().height;
+canvas.width = 1000;
+canvas.height = 510;
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.globalCompositeOperation = 'multiply';
@@ -153,8 +167,7 @@ recognition.addEventListener('result', e => {
     if (transcript.includes('toggle play')) {
       togglePlay();
     }
-  }
-  else if (transcript.includes('srub')) {
+  } else if (transcript.includes('srub')) {
     scrub();
   }
 });
