@@ -6,6 +6,7 @@ const progressBar = player.querySelector('.progress__filled');
 const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
+const voice = document.querySelector('.button-voice');
 
 // Video Functions
 
@@ -140,30 +141,31 @@ const recognition = new SpeechRecognition();
 recognition.interimResults = true;
 recognition.lang = 'en-US';
 
-recognition.addEventListener('result', e => {
-  const transcript = Array.from(e.results)
-    .map(result => result[0])
-    .map(result => result.transcript)
-    .join('');
+function voiceStart() {
+  recognition.addEventListener('result', e => {
+    const transcript = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join('');
 
 
 
-  if (e.results[0].isFinal) {
-    console.log(e);
-    if (transcript.includes('toggle play')) {
-      togglePlay();
+    if (e.results[0].isFinal) {
+      console.log(e);
+      if (transcript.includes('toggle play')) {
+        togglePlay();
+      }
     }
-  }
-  else if (transcript.includes('srub')) {
-    scrub();
-  }
-});
+    else if (transcript.includes('srub')) {
+      scrub();
+    }
+  });
 
-recognition.addEventListener('end', recognition.start);
+  recognition.addEventListener('end', recognition.start);
 
-recognition.start();
-
-
+  recognition.start();
+}
+voice.addEventListener('click', voiceStart);
 
 // COOKIES LIBRARY
 // document.cookie = "path=/";

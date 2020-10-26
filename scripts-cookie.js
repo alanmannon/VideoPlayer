@@ -74,8 +74,9 @@ document.getElementById("upload_widget").addEventListener("click", function () {
 // if (data === true) {
 var thumbnailString = "";
 data.forEach(function(index) {
-  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url}></img>`;
+  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} style="width: 200px; height: 150px; margin: 30px; border: 2px solid rgb(173, 253, 47); border-radius: 7px;"></img>` ; 
 });
+
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
   
 //PLAYLIST CODE
