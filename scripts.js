@@ -174,12 +174,13 @@ function lineChange() {
 
 // Voice Recognition
 
-window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
-recognition.interimResults = true;
-recognition.lang = 'en-US';
-
 function voiceStart() {
+  window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  recognition.interimResults = true;
+  recognition.lang = 'en-US';
+
+
   recognition.addEventListener('result', e => {
     const transcript = Array.from(e.results)
       .map(result => result[0])
@@ -190,12 +191,24 @@ function voiceStart() {
 
     if (e.results[0].isFinal) {
       console.log(e);
-      if (transcript.includes('toggle play')) {
-        togglePlay();
+      if (transcript.includes('play')) {
+        video.play();
       }
     }
-    else if (transcript.includes('srub')) {
-      scrub();
+    else if (transcript.includes('pause')) {
+      video.pause(); 
+    }
+    else if (transcript.includes('skip')) {
+      video.currentTime += 10; 
+    }
+    else if (transcript.includes('back')) {
+      video.currentTime -= 5; 
+    }
+    else if (transcript.includes('volume max')) {
+      video.volume = 1; 
+    }
+    else if (transcript.includes('mute')) {
+      video.volume = 0; 
     }
   });
 
@@ -203,7 +216,10 @@ function voiceStart() {
 
   recognition.start();
 }
-voice.addEventListener('click', voiceStart);
+// Voice Event listener
+// voice.addEventListener('click', voiceStart);
+
+// voice.addEventListener('click', voiceStart.stop);
 
 // COOKIES LIBRARY
 // document.cookie = "path=/";
