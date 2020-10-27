@@ -25,10 +25,21 @@
 
   <div id="thumbnail-container">
   </div>
+
+  <div class="dropdown-menu">
+    <button class="menu-btn">Add to Playlist...</button>
+    <div class="menu-content">
+      <a class="playlist-names" onclick="setPlaylist(this.innerHTML)">Tacos</a>
+      <a class="playlist-names" onclick="setPlaylist(this.innerHTML)">Enchiladas</a>
+      <a class="playlist-names" onclick="setPlaylist(this.innerHTML)">Burritos</a>
+    </div>
+  </div>
   
   <p id="playlist">
 
   </p>
+
+ 
 
   <script 
     src="scripts-cookie.js"></script>
