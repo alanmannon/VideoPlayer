@@ -38,11 +38,51 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
+function toggleMute() {
+  let lastVolume = video['volume'];
+  if (video.muted) {
+    video.muted = false;
+    video['volume'] = lastVolume;
+  } else {
+    video.muted = true;
+  }
+}
+
+function toggleFullScreen() {
+  if (player.requestFullscreen) {
+    if (document.fullScreenElement) {
+      document.cancelFullScreen();
+    } else {
+      player.requestFullscreen();
+    }
+  } else if (player.msRequestFullscreen) {
+    if (document.msFullscreenElement) {
+      document.msExitFullscreen();
+    } else {
+      player.msRequestFullscreen();
+    }
+  } else if (player.mozRequestFullScreen) {
+    if (document.mozFullScreenElement) {
+      document.mozCancelFullScreen();
+    } else {
+      player.mozRequestFullScreen();
+    }
+  } else if (player.webkitRequestFullscreen) {
+    if (document.webkitFullscreenElement) {
+      document.webkitCancelFullScreen();
+    } else {
+      player.webkitRequestFullscreen();
+    }
+  }
+}
+
+
 // Video Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
+video.addEventListener('dblclick', toggleFullScreen);
 
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
@@ -58,26 +98,10 @@ progress.addEventListener('mouseup', () => mousedown = false);
 // Canvas Elements
 const canvas = document.querySelector('#video_canvas');
 const ctx = canvas.getContext('2d');
-// const playerWidth = parseInt(player.offsetWidth);
-// console.log(playerWidth);
 
-// let v = document.getElementById("video_player");
 
-window.addEventListener("resize", ev => {
-  let w = canvas.getBoundingClientRect().width;
-  let h = (video.getBoundingClientRect().height);
-  console.log(w, h);
-
-  // if (w && h) {
-  //   video.style.width = w;
-  //   video.style.height = h;
-  // }
-}, false);
-
-// canvas.width = this.w || canvas.getBoundingClientRect().width;
-// canvas.height = this.h || video.getBoundingClientRect().height;
-canvas.width = 1000;
-canvas.height = 510;
+canvas.width = canvas.getBoundingClientRect().width;
+canvas.height = video.getBoundingClientRect().height;
 ctx.lineJoin = 'round';
 ctx.lineCap = 'round';
 ctx.globalCompositeOperation = 'multiply';
