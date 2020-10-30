@@ -92,38 +92,11 @@ function toggleFullScreen() {
 }
 
 
-
-// (player.requestFullscreen) {
-//   if (document.fullScreenElement) {
-//     document.cancelFullScreen();
-//   } else {
-//     player.requestFullscreen();
-//   }
-// } else if (player.msRequestFullscreen) {
-//   if (document.msFullscreenElement) {
-//     document.msExitFullscreen();
-//   } else {
-//     player.msRequestFullscreen();
-//   }
-// } else if (player.mozRequestFullScreen) {
-//   if (document.mozFullScreenElement) {
-//     document.mozCancelFullScreen();
-//   } else {
-//     player.mozRequestFullScreen();
-//   }
-// } else if (player.webkitRequestFullscreen) {
-//   if (document.webkitFullscreenElement) {
-//     document.webkitCancelFullScreen();
-//   } else {
-//     player.webkitRequestFullscreen();
-//   }
-// }
 // Video Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
-video.addEventListener('dblclick', toggleFullScreen);
 
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
@@ -188,7 +161,7 @@ canvas.addEventListener('mouseout', () => isDrawing = false);
 //Canvas Stroke Elements
 document.getElementById("color-picker").onclick = colorChanger;
 document.getElementById("line-size").onchange = lineChange;
-
+const lineSizeHotkey = document.getElementById("line-size");
 
 function colorChanger() {
   if (colorIndex < 3) {
@@ -209,8 +182,6 @@ function lineChange() {
   lineSize = this.value;
   ctx.lineWidth = lineSize;
 }
-
-// Video Hotkeys
 
 
 // Voice Recognition
@@ -235,20 +206,15 @@ function voiceStart() {
       if (transcript.includes('play')) {
         video.play();
       }
-    }
-    else if (transcript.includes('pause')) {
+    } else if (transcript.includes('pause')) {
       video.pause();
-    }
-    else if (transcript.includes('skip')) {
+    } else if (transcript.includes('skip')) {
       video.currentTime += 10;
-    }
-    else if (transcript.includes('back')) {
+    } else if (transcript.includes('back')) {
       video.currentTime -= 5;
-    }
-    else if (transcript.includes('volume max')) {
+    } else if (transcript.includes('volume max')) {
       video.volume = 1;
-    }
-    else if (transcript.includes('mute')) {
+    } else if (transcript.includes('mute')) {
       video.volume = 0;
     }
   });
@@ -349,3 +315,26 @@ function voiceStart() {
 
 // //This line takes the 
 // document.getElementById("demo").innerHTML = readCookie;
+
+// HotKeys
+window.addEventListener('keydown', (e) => {
+  console.log(e.key);
+  if (e.key === 'r') {
+    clearCanvas();
+  } else if (e.key === 'q') {
+    colorChanger();
+  } else if (e.key === ' ') {
+    togglePlay();
+  } else if (e.key === 'f') {
+    toggleFullScreen();
+  } else if (e.key === 'w') {
+    console.log(lineSizeHotkey.value);
+    lineSizeHotkey.value = (lineSizeHotkey.value - 5);
+    lineSize = lineSizeHotkey.value;
+  } else if (e.key === 'e') {
+    console.log(lineSizeHotkey.value);
+    lineSizeHotkey.value = parseInt(lineSizeHotkey.value) + 5;
+    lineSize = lineSizeHotkey.value;
+  }
+});
+
