@@ -7,6 +7,7 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 const voice = document.querySelector('.button-voice');
+const volumeRange = document.getElementById('volume_range');
 
 // Video Functions
 
@@ -38,13 +39,16 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
-function toggleMute() {
-  let lastVolume = video['volume'];
+
+function toggleMute(el) {
   if (video.muted) {
     video.muted = false;
-    video['volume'] = lastVolume;
+    volumeRange.value = video.volume;
+    el.src = 'icons/volume.svg';
   } else {
     video.muted = true;
+    el.src = 'icons/mute.svg';
+    volumeRange.value = 0;
   }
 }
 
@@ -196,19 +200,19 @@ function voiceStart() {
       }
     }
     else if (transcript.includes('pause')) {
-      video.pause(); 
+      video.pause();
     }
     else if (transcript.includes('skip')) {
-      video.currentTime += 10; 
+      video.currentTime += 10;
     }
     else if (transcript.includes('back')) {
-      video.currentTime -= 5; 
+      video.currentTime -= 5;
     }
     else if (transcript.includes('volume max')) {
-      video.volume = 1; 
+      video.volume = 1;
     }
     else if (transcript.includes('mute')) {
-      video.volume = 0; 
+      video.volume = 0;
     }
   });
 
