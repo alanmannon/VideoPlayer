@@ -7,6 +7,7 @@ const toggle = player.querySelector('.toggle');
 const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 const voice = document.querySelector('.button-voice');
+const volumeRange = document.getElementById('volume_range');
 
 // Video Functions
 
@@ -38,41 +39,55 @@ function scrub(e) {
   video.currentTime = scrubTime;
 }
 
-function toggleMute() {
-  let lastVolume = video['volume'];
+
+function toggleMute(el) {
   if (video.muted) {
     video.muted = false;
-    video['volume'] = lastVolume;
+    volumeRange.value = video.volume;
+    el.src = 'icons/volume.svg';
   } else {
     video.muted = true;
+    el.src = 'icons/mute.svg';
+    volumeRange.value = 0;
+  }
+}
+
+function isFullScreen() {
+  return (document.fullScreenElement && document.fullScreenElement !== null) ||
+    (document.msFullscreenElement && document.msFullscreenElement !== null) ||
+    (document.mozFullScreen || document.webkitIsFullScreen);
+}
+
+function enterFS() {
+  var page = player;
+  if (player.requestFullscreen) {
+    player.requestFullscreen();
+  } else if (page.mozRequestFullScreen) {
+    page.mozRequestFullScreen();
+  } else if (page.msRequestFullscreen) {
+    page.msRequestFullscreen();
+  } else if (page.webkitRequestFullScreen) {
+    page.webkitRequestFullScreen();
+  }
+}
+
+function exitFS() {
+  if (document.exitFullScreen) {
+    return document.exitFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    return document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    return document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    return document.mozCancelFullScreen();
   }
 }
 
 function toggleFullScreen() {
-  if (player.requestFullscreen) {
-    if (document.fullScreenElement) {
-      document.cancelFullScreen();
-    } else {
-      player.requestFullscreen();
-    }
-  } else if (player.msRequestFullscreen) {
-    if (document.msFullscreenElement) {
-      document.msExitFullscreen();
-    } else {
-      player.msRequestFullscreen();
-    }
-  } else if (player.mozRequestFullScreen) {
-    if (document.mozFullScreenElement) {
-      document.mozCancelFullScreen();
-    } else {
-      player.mozRequestFullScreen();
-    }
-  } else if (player.webkitRequestFullscreen) {
-    if (document.webkitFullscreenElement) {
-      document.webkitCancelFullScreen();
-    } else {
-      player.webkitRequestFullscreen();
-    }
+  if (!isFullScreen()) {
+    enterFS();
+  } else {
+    exitFS();
   }
 }
 
@@ -82,7 +97,6 @@ video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
 video.addEventListener('pause', updateButton);
 video.addEventListener('timeupdate', handleProgress);
-video.addEventListener('dblclick', toggleFullScreen);
 
 toggle.addEventListener('click', togglePlay);
 skipButtons.forEach(button => button.addEventListener('click', skip));
@@ -147,7 +161,7 @@ canvas.addEventListener('mouseout', () => isDrawing = false);
 //Canvas Stroke Elements
 document.getElementById("color-picker").onclick = colorChanger;
 document.getElementById("line-size").onchange = lineChange;
-
+const lineSizeHotkey = document.getElementById("line-size");
 
 function colorChanger() {
   if (colorIndex < 3) {
@@ -168,8 +182,6 @@ function lineChange() {
   lineSize = this.value;
   ctx.lineWidth = lineSize;
 }
-
-// Video Hotkeys
 
 
 // Voice Recognition
@@ -194,21 +206,16 @@ function voiceStart() {
       if (transcript.includes('play')) {
         video.play();
       }
-    }
-    else if (transcript.includes('pause')) {
-      video.pause(); 
-    }
-    else if (transcript.includes('skip')) {
-      video.currentTime += 10; 
-    }
-    else if (transcript.includes('back')) {
-      video.currentTime -= 5; 
-    }
-    else if (transcript.includes('volume max')) {
-      video.volume = 1; 
-    }
-    else if (transcript.includes('mute')) {
-      video.volume = 0; 
+    } else if (transcript.includes('pause')) {
+      video.pause();
+    } else if (transcript.includes('skip')) {
+      video.currentTime += 10;
+    } else if (transcript.includes('back')) {
+      video.currentTime -= 5;
+    } else if (transcript.includes('volume max')) {
+      video.volume = 1;
+    } else if (transcript.includes('mute')) {
+      video.volume = 0;
     }
   });
 
@@ -308,3 +315,26 @@ function voiceStart() {
 
 // //This line takes the 
 // document.getElementById("demo").innerHTML = readCookie;
+
+// HotKeys
+window.addEventListener('keydown', (e) => {
+  console.log(e.key);
+  if (e.key === 'r') {
+    clearCanvas();
+  } else if (e.key === 'q') {
+    colorChanger();
+  } else if (e.key === ' ') {
+    togglePlay();
+  } else if (e.key === 'f') {
+    toggleFullScreen();
+  } else if (e.key === 'w') {
+    console.log(lineSizeHotkey.value);
+    lineSizeHotkey.value = (lineSizeHotkey.value - 5);
+    lineSize = lineSizeHotkey.value;
+  } else if (e.key === 'e') {
+    console.log(lineSizeHotkey.value);
+    lineSizeHotkey.value = parseInt(lineSizeHotkey.value) + 5;
+    lineSize = lineSizeHotkey.value;
+  }
+});
+
