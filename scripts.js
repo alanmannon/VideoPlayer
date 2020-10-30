@@ -52,35 +52,72 @@ function toggleMute(el) {
   }
 }
 
-function toggleFullScreen() {
+function isFullScreen() {
+  return (document.fullScreenElement && document.fullScreenElement !== null) ||
+    (document.msFullscreenElement && document.msFullscreenElement !== null) ||
+    (document.mozFullScreen || document.webkitIsFullScreen);
+}
+
+function enterFS() {
+  var page = player;
   if (player.requestFullscreen) {
-    if (document.fullScreenElement) {
-      document.cancelFullScreen();
-    } else {
-      player.requestFullscreen();
-    }
-  } else if (player.msRequestFullscreen) {
-    if (document.msFullscreenElement) {
-      document.msExitFullscreen();
-    } else {
-      player.msRequestFullscreen();
-    }
-  } else if (player.mozRequestFullScreen) {
-    if (document.mozFullScreenElement) {
-      document.mozCancelFullScreen();
-    } else {
-      player.mozRequestFullScreen();
-    }
-  } else if (player.webkitRequestFullscreen) {
-    if (document.webkitFullscreenElement) {
-      document.webkitCancelFullScreen();
-    } else {
-      player.webkitRequestFullscreen();
-    }
+    player.requestFullscreen();
+  } else if (page.mozRequestFullScreen) {
+    page.mozRequestFullScreen();
+  } else if (page.msRequestFullscreen) {
+    page.msRequestFullscreen();
+  } else if (page.webkitRequestFullScreen) {
+    page.webkitRequestFullScreen();
+  }
+}
+
+function exitFS() {
+  if (document.exitFullScreen) {
+    return document.exitFullScreen();
+  } else if (document.webkitExitFullscreen) {
+    return document.webkitExitFullscreen();
+  } else if (document.msExitFullscreen) {
+    return document.msExitFullscreen();
+  } else if (document.mozCancelFullScreen) {
+    return document.mozCancelFullScreen();
+  }
+}
+
+function toggleFullScreen() {
+  if (!isFullScreen()) {
+    enterFS();
+  } else {
+    exitFS();
   }
 }
 
 
+
+// (player.requestFullscreen) {
+//   if (document.fullScreenElement) {
+//     document.cancelFullScreen();
+//   } else {
+//     player.requestFullscreen();
+//   }
+// } else if (player.msRequestFullscreen) {
+//   if (document.msFullscreenElement) {
+//     document.msExitFullscreen();
+//   } else {
+//     player.msRequestFullscreen();
+//   }
+// } else if (player.mozRequestFullScreen) {
+//   if (document.mozFullScreenElement) {
+//     document.mozCancelFullScreen();
+//   } else {
+//     player.mozRequestFullScreen();
+//   }
+// } else if (player.webkitRequestFullscreen) {
+//   if (document.webkitFullscreenElement) {
+//     document.webkitCancelFullScreen();
+//   } else {
+//     player.webkitRequestFullscreen();
+//   }
+// }
 // Video Events
 video.addEventListener('click', togglePlay);
 video.addEventListener('play', updateButton);
