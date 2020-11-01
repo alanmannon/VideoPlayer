@@ -51,14 +51,18 @@ var myWidget = cloudinary.createUploadWidget({
   uploadPreset: 'w5ixakcl'
 }, (error, result) => {
   if (!error && result && result.event === "success") {
+    var libraryEntry = {
+      url: result.info.url,
+      thumbnail_url: result.info.thumbnail_url
+    };
     if (previousCookie === undefined) {
       //First Upload
-      document.cookie = "url=" + JSON.stringify(result.info);
+
+      document.cookie = "url=" + JSON.stringify(libraryEntry);
     } else if (previousCookie != undefined) {
       //Subsequent uploads - WILL BREAK IF THERE ARE PLAYLISTS
-      var newCookie = previousCookie + ", " + JSON.stringify(result.info);
+      var newCookie = previousCookie + ", " + JSON.stringify(libraryEntry);
       document.cookie = newCookie;
-
       console.log("Added to original cookies");
 
     }
@@ -76,7 +80,24 @@ document.getElementById("upload_widget").addEventListener("click", function () {
 // if (data === true) {
 var thumbnailString = "";
 data.forEach(function (index) {
-  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} style="width: 200px; height: 150px; margin: 30px; border: 2px solid rgb(173, 253, 47); border-radius: 7px;"></img><button style="height: 30px; width: 30px;" onclick="addToPlaylist('${index.thumbnail_url}')">+</button>`;
+  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} 
+    style="width: 200px; 
+    height: 150px; 
+    margin: 30px; 
+    border: 2px solid rgb(173, 253, 47); 
+    border-radius: 7px;">
+    </img>
+  <button style=
+    "height: 30px; width: 30px; 
+    font-weight:700; 
+    background-color: 
+    rgb(50,50,50); 
+    color:lightgray; 
+    border: 0; 
+    border-radius: 4px; 
+    cursor:pointer;" 
+    onclick="addToPlaylist('${index.thumbnail_url}')">
+  +</button>`;
 });
 
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
@@ -107,32 +128,6 @@ function previousPlaylist() {
   return previousPlaylist;
 }
 
-// function findPlaylists() {
-//   if (playlistNumber === 1) {
-//     console.log("1st");
-//     var playlistLog = playlistCookie.substring(8);
-//   } else if (playlistNumber > 1) {
-//     console.log("2nd");
-//     var playlistLog = (playlistCookie.substring(8)).split(', ');
-//   }
-//   return parsePlaylist(playlistLog);
-// }
-
-
-// function parsePlaylist(array) {
-//   var finalarray = [];
-//   if (playlistNumber === 1) {
-//     finalarray.push(JSON.parse(array));
-//   } else if (playlistNumber > 1) {
-//     for (var i = 0; i < array.length; i++) {
-//       finalarray.push(JSON.parse(`${array[i]}`));
-//     }
-//   }
-//   return finalarray;
-// }
-
-// const playlists = findPlaylists();
-
 
 //Begin on Page Load, Find Data from previous cookie. 
 var playlistCookie = document.cookie.split('; ').find(row => row.startsWith('playlist'));
@@ -143,19 +138,9 @@ if (playlistCookie !== undefined) {
   playlistNumber = 0;
 }
 
-
-//PLAYLIST SELECTOR
-let dropdownBtn = document.querySelector('.menu-btn');
-let menuContent = document.querySelector('.menu-content');
-dropdownBtn.addEventListener('click', () => {
-  if (menuContent.style.display === "") {
-    menuContent.style.display = "block";
-  } else {
-    menuContent.style.display = "";
-  }
-});
-
 function setPlaylist(word) {
   selectPlaylist = word;
   console.log(selectPlaylist);
 }
+
+

@@ -9,7 +9,7 @@
   <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>  
 
 </head>
-<body>
+<body id="playlist">
   <div class="nav">
     <h1 class="logo"><strong>PRO</strong>PLAYER</h1>   
     <div class="button-container">
@@ -19,32 +19,18 @@
     </div>
   </div>
 
-  <div class="heading"> 
-    <h1>Your sweet videos below!</h1>
-  </div>
 
-  <div id="thumbnail-container">
-  </div>
-
-  <form name="playlistSelect" >
-    <select name="playlistMenu" id="playlist-select" onChange="setPlaylist(document.playlistSelect.playlistMenu.options[document.playlistSelect.playlistMenu.options.selectedIndex].innerHTML)">
-    <option>Jump to...</option>
-    <option value=https://www.quackit.com>Tacos</option>
-    <option value=https://www.quackit.com/javascript/>Burritos</option>
-    <option value=https://www.quackit.com/html/>Enchiladas</option>
-    </select>
-  </form>
   
-  <p id="playlist">
+  <div id="playlist-gallery" style="margin-top: 25rem;">
 
-  </p>
+
+  </div>
 
  
 
   <script 
-    src="scripts-cookie.js"></script>
+    src="scripts-playlist.js"></script>
     
-
 <script type="text/javascript">
 
 </script>
