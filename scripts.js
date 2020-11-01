@@ -8,6 +8,7 @@ const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 const voice = document.querySelector('.button-voice');
 const volumeRange = document.getElementById('volume_range');
+const speedRange = document.getElementById('speed_range');
 
 // Video Functions
 
@@ -341,9 +342,42 @@ window.addEventListener('keydown', (e) => {
     lineSize = lineSizeHotkey.value;
   } else if (e.key === 'v') {
     voiceStart();
+  } else if (e.key === 'm') {
+    if (video.muted) {
+      video.muted = false;
+      volumeRange.value = video.volume;
+    } else {
+      video.muted = true;
+      volumeRange.value = 0;
+    }
+  } else if (e.key === 'a') {
+    if (volumeRange.value > 0.12) {
+      volumeRange.value = volumeRange.value - .1;
+      video.volume = volumeRange.value;
+    } else if (volumeRange.value < 0.12) {
+      volumeRange.value = 0;
+      video.volume = volumeRange.value;
+    }
+  } else if (e.key === 's') {
+    if (volumeRange.value < 1) {
+      volumeRange.value = volumeRange.value - (-.1);
+      video.volume = volumeRange.value;
+    }
+  } else if (e.key === 'z') {
+    if (speedRange.value > 0.12) {
+      speedRange.value = speedRange.value - .1;
+      video.playbackRate = speedRange.value;
+    } else if (speedRange.value < 0.12) {
+      speedRange.value = 0;
+      video.playbackRate = speedRange.value;
+    }
+  } else if (e.key === 'x') {
+    if (speedRange.value < 2) {
+      speedRange.value = speedRange.value - (-.1);
+      video.playbackRate = speedRange.value;
+    }
   }
 });
-
 
 
 function removeTransition(e) {
