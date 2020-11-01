@@ -8,6 +8,7 @@ const skipButtons = player.querySelectorAll('[data-skip]');
 const ranges = player.querySelectorAll('.player__slider');
 const voice = document.querySelector('.button-voice');
 const volumeRange = document.getElementById('volume_range');
+const speedRange = document.getElementById('speed_range');
 
 // Video Functions
 
@@ -147,6 +148,9 @@ function clearCanvas() {
   const canvas = document.getElementById('video_canvas');
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const hotClear = document.getElementById("clear");
+  hotClear.classList.add('playing');
+  hotClear.addEventListener('transitionend', removeTransition);
 }
 
 canvas.addEventListener('mousedown', (e) => {
@@ -187,6 +191,9 @@ function lineChange() {
 // Voice Recognition
 
 function voiceStart() {
+  const hotVoice = document.getElementById("voice");
+  hotVoice.classList.add('playing');
+  hotVoice.addEventListener('transitionend', removeTransition);
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
@@ -328,13 +335,52 @@ window.addEventListener('keydown', (e) => {
   } else if (e.key === 'f') {
     toggleFullScreen();
   } else if (e.key === 'w') {
-    console.log(lineSizeHotkey.value);
     lineSizeHotkey.value = (lineSizeHotkey.value - 5);
     lineSize = lineSizeHotkey.value;
   } else if (e.key === 'e') {
-    console.log(lineSizeHotkey.value);
     lineSizeHotkey.value = parseInt(lineSizeHotkey.value) + 5;
     lineSize = lineSizeHotkey.value;
+  } else if (e.key === 'v') {
+    voiceStart();
+  } else if (e.key === 'm') {
+    if (video.muted) {
+      video.muted = false;
+      volumeRange.value = video.volume;
+    } else {
+      video.muted = true;
+      volumeRange.value = 0;
+    }
+  } else if (e.key === 'a') {
+    if (volumeRange.value > 0.12) {
+      volumeRange.value = volumeRange.value - .1;
+      video.volume = volumeRange.value;
+    } else if (volumeRange.value < 0.12) {
+      volumeRange.value = 0;
+      video.volume = volumeRange.value;
+    }
+  } else if (e.key === 's') {
+    if (volumeRange.value < 1) {
+      volumeRange.value = volumeRange.value - (-.1);
+      video.volume = volumeRange.value;
+    }
+  } else if (e.key === 'z') {
+    if (speedRange.value > 0.12) {
+      speedRange.value = speedRange.value - .1;
+      video.playbackRate = speedRange.value;
+    } else if (speedRange.value < 0.12) {
+      speedRange.value = 0;
+      video.playbackRate = speedRange.value;
+    }
+  } else if (e.key === 'x') {
+    if (speedRange.value < 2) {
+      speedRange.value = speedRange.value - (-.1);
+      video.playbackRate = speedRange.value;
+    }
   }
 });
 
+
+function removeTransition(e) {
+  if (e.propertyName !== 'transform') return;
+  this.classList.remove('playing');
+}
