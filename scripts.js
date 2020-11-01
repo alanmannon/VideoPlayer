@@ -216,8 +216,9 @@ function voiceStart() {
 
   recognition.start();
 }
+
 // Voice Event listener
-// voice.addEventListener('click', voiceStart);
+voice.addEventListener('click', voiceStart);
 
 // voice.addEventListener('click', voiceStart.stop);
 

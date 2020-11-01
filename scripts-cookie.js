@@ -76,7 +76,7 @@ document.getElementById("upload_widget").addEventListener("click", function () {
 // if (data === true) {
 var thumbnailString = "";
 data.forEach(function (index) {
-  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} style="width: 200px; height: 150px; margin: 30px; border: 2px solid rgb(173, 253, 47); border-radius: 7px;"></img><button style="height: 30px; width: 30px;" onclick="addToPlaylist('${index.thumbnail_url}')">+</button>`;
+  thumbnailString += `<img src=${index.thumbnail_url} href=${index.url} style="width: 200px; height: 150px; margin: 10px; border: 2px solid rgb(173, 253, 47); border-radius: 7px;"></img><button style="height: 30px; width: 30px;" onclick="addToPlaylist('${index.thumbnail_url}')">+</button>`;
 });
 
 document.getElementById("thumbnail-container").innerHTML = thumbnailString;
@@ -86,26 +86,26 @@ document.getElementById("thumbnail-container").innerHTML = thumbnailString;
 
 
 //PLAYLIST CODE
-function addToPlaylist(thumbnailUrl) {
-  var entry = data.find(video => video["thumbnail_url"] === thumbnailUrl);
-  entry["playlistName"] = selectPlaylist;
-  var playlistArray = [];
-  playlistArray.push(JSON.stringify(entry));
-  console.log(playlistArray);
-  // //if there are no playlists before... 
-  if (previousPlaylist() === undefined) {
-    console.log('new');
-    document.cookie = "playlist=" + playlistArray;
-  } else if (previousPlaylist() !== undefined) {
-    console.log('added');
-    document.cookie = previousPlaylist() + ", " + playlistArray;
-  }
-}
+// function addToPlaylist(thumbnailUrl) {
+//   var entry = data.find(video => video["thumbnail_url"] === thumbnailUrl);
+//   entry["playlistName"] = selectPlaylist;
+//   var playlistArray = [];
+//   playlistArray.push(JSON.stringify(entry));
+//   console.log(playlistArray);
+//   // //if there are no playlists before... 
+//   if (previousPlaylist() === undefined) {
+//     console.log('new');
+//     document.cookie = "playlist=" + playlistArray;
+//   } else if (previousPlaylist() !== undefined) {
+//     console.log('added');
+//     document.cookie = previousPlaylist() + ", " + playlistArray;
+//   }
+// }
 
-function previousPlaylist() {
-  var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
-  return previousPlaylist;
-}
+// function previousPlaylist() {
+//   var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+//   return previousPlaylist;
+// }
 
 // function findPlaylists() {
 //   if (playlistNumber === 1) {
@@ -135,27 +135,27 @@ function previousPlaylist() {
 
 
 //Begin on Page Load, Find Data from previous cookie. 
-var playlistCookie = document.cookie.split('; ').find(row => row.startsWith('playlist'));
-if (playlistCookie !== undefined) {
-  var playlistNumber = playlistCookie.match(/"playlistName":/g).length;
-  console.log("# of Playlists Items", playlistNumber);
-} else {
-  playlistNumber = 0;
-}
+// var playlistCookie = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+// if (playlistCookie !== undefined) {
+//   var playlistNumber = playlistCookie.match(/"playlistName":/g).length;
+//   console.log("# of Playlists Items", playlistNumber);
+// } else {
+//   playlistNumber = 0;
+// }
 
 
-//PLAYLIST SELECTOR
-let dropdownBtn = document.querySelector('.menu-btn');
-let menuContent = document.querySelector('.menu-content');
-dropdownBtn.addEventListener('click', () => {
-  if (menuContent.style.display === "") {
-    menuContent.style.display = "block";
-  } else {
-    menuContent.style.display = "";
-  }
-});
+// //PLAYLIST SELECTOR
+// let dropdownBtn = document.querySelector('.menu-btn');
+// let menuContent = document.querySelector('.menu-content');
+// dropdownBtn.addEventListener('click', () => {
+//   if (menuContent.style.display === "") {
+//     menuContent.style.display = "block";
+//   } else {
+//     menuContent.style.display = "";
+//   }
+// });
 
-function setPlaylist(word) {
-  selectPlaylist = word;
-  console.log(selectPlaylist);
-}
+// function setPlaylist(word) {
+//   selectPlaylist = word;
+//   console.log(selectPlaylist);
+// }
