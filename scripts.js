@@ -147,6 +147,9 @@ function clearCanvas() {
   const canvas = document.getElementById('video_canvas');
   const ctx = canvas.getContext("2d");
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const hotClear = document.getElementById("clear");
+  hotClear.classList.add('playing');
+  hotClear.addEventListener('transitionend', removeTransition);
 }
 
 canvas.addEventListener('mousedown', (e) => {
@@ -187,6 +190,9 @@ function lineChange() {
 // Voice Recognition
 
 function voiceStart() {
+  const hotVoice = document.getElementById("voice");
+  hotVoice.classList.add('playing');
+  hotVoice.addEventListener('transitionend', removeTransition);
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   const recognition = new SpeechRecognition();
   recognition.interimResults = true;
@@ -328,13 +334,19 @@ window.addEventListener('keydown', (e) => {
   } else if (e.key === 'f') {
     toggleFullScreen();
   } else if (e.key === 'w') {
-    console.log(lineSizeHotkey.value);
     lineSizeHotkey.value = (lineSizeHotkey.value - 5);
     lineSize = lineSizeHotkey.value;
   } else if (e.key === 'e') {
-    console.log(lineSizeHotkey.value);
     lineSizeHotkey.value = parseInt(lineSizeHotkey.value) + 5;
     lineSize = lineSizeHotkey.value;
+  } else if (e.key === 'v') {
+    voiceStart();
   }
 });
 
+
+
+function removeTransition(e) {
+  if (e.propertyName !== 'transform') return;
+  this.classList.remove('playing');
+}
