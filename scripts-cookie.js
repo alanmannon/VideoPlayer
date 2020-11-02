@@ -1,4 +1,7 @@
 // COOKIES LIBRARY
+
+
+
 document.cookie = "path=/";
 
 var selectPlaylist = "";
@@ -45,6 +48,14 @@ const data = findData();
 console.log("PREVIOUS:", previousCookie);
 console.log("DATA:", data);
 
+if (window.location.href !== "http://localhost:8080/library.html") {
+  const query = window.location.search;
+  console.log(query);
+  const videoParameter = query.substring(1);
+  console.log(videoParameter);
+  document.getElementById('videourl').src = `${data[videoParameter].url}`;
+}
+
 //Cloudinary Widget
 var myWidget = cloudinary.createUploadWidget({
   cloudName: 'dzi01cqjq',
@@ -84,8 +95,10 @@ data.forEach(function (index) {
     style="width: 200px; 
     height: 150px; 
     margin: 30px; 
-    border: 2px solid rgb(173, 253, 47); 
-    border-radius: 7px;">
+    border: 2px solid rgb(173, 253, 47);
+    border-radius: 7px;
+    cursor: pointer"
+    onclick="playVideo('${index.url}')">
     </img>
   <button style=
     "height: 30px; width: 30px; 
@@ -100,8 +113,9 @@ data.forEach(function (index) {
   +</button>`;
 });
 
-document.getElementById("thumbnail-container").innerHTML = thumbnailString;
-
+if (window.location.href === "http://localhost:8080/library.html") {
+  document.getElementById("thumbnail-container").innerHTML = thumbnailString;
+}
 
 
 function setPlaylist(word) {
@@ -109,4 +123,34 @@ function setPlaylist(word) {
   console.log(selectPlaylist);
 }
 
+function playVideo(videoUrl) {
+  console.log(videoUrl);
+  var videoIndex = data.findIndex(video => video["url"] === videoUrl);
+  console.log(videoIndex);
+  window.location.href = `http://localhost:8080?${videoIndex}`;
+}
 
+
+
+
+
+function addToPlaylist(thumbnailUrl) {
+  var entry = data.find(video => video["thumbnail_url"] === thumbnailUrl);
+  entry["playlistName"] = selectPlaylist;
+  var playlistArray = [];
+  playlistArray.push(JSON.stringify(entry));
+  console.log(playlistArray);
+  // //if there are no playlists before... 
+  if (previousPlaylist() === undefined) {
+    console.log('new');
+    document.cookie = "playlist=" + playlistArray;
+  } else if (previousPlaylist() !== undefined) {
+    console.log('added');
+    document.cookie = previousPlaylist() + ", " + playlistArray;
+  }
+}
+
+function previousPlaylist() {
+  var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
+  return previousPlaylist;
+}

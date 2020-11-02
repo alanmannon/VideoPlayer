@@ -15,7 +15,7 @@
     <a href="index.html" id="homelink"><h1 class="logo"><strong>PRO</strong>PLAYER</h1></a>
     <div class="button-container">
       <a href="library.html"><icon class="material-icons">movie</icon><span>Library</span></a>
-      <a><icon class="material-icons">playlist_play</icon><span>Playlist</span></a>
+      <a href="playlist.html"><icon class="material-icons">playlist_play</icon><span>Playlist</span></a>
     <a id="upload_widget"><icon class="material-icons">publish</icon><span>Upload</span></a>
     </div>
   </div>
@@ -27,8 +27,8 @@
   <img id="videoinfo"></img> -->
   <!-- HOTKEY LABELS -->
     <div class="hotkeylabels">
-      <div class="key">
-        <p>?</p>
+      <div class="key" id="spacekey">
+        <p>SPACE</p>
       </div>
       <p>Play/Pause</p>
       <div class="key">
@@ -83,7 +83,7 @@
 
   <div class="player" id="video_player" >
     <canvas class="canvas" id="video_canvas"></canvas>
-    <video class="player__video viewer" src="http://res.cloudinary.com/dzi01cqjq/video/upload/v1604278786/public/by2z0mupr8smkbvrxorn.mp4"></video>
+    <video class="player__video viewer" src="http://res.cloudinary.com/dzi01cqjq/video/upload/v1604278786/public/by2z0mupr8smkbvrxorn.mp4" id="videourl"></video>
     
     <div class="player__controls">
       <div class="progress">
@@ -103,11 +103,10 @@
 
   <!-- Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
 
-  <script 
-    src="scripts.js"></script>
+  <script src="scripts.js"></script>
+  <script src="scripts-cookie.js"></script>
 
-  <script
-    src="scripts-cookie.js"></script>
+
     
 </body>
 </html>
