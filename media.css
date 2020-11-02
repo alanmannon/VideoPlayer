@@ -138,16 +138,13 @@ body {
   margin-bottom: 1rem;
 }
 
-.button-reset { 
+.tool-button{ 
   background-color: #414141;
+  transition: all .07s ease;
 }
 
 .button-voice {
   background-color: #414141;
-}
-
-.button-voice.down {
-  background-color: rgb(157, 157, 157);
 }
 ​
 .slider {
@@ -250,6 +247,20 @@ body {
   height: 20px;
 }
 
+.player__button_speed {
+  background: none;
+  border: 0;
+  line-height: 1;
+  color: white;
+  text-align: center;
+  outline: 0;
+  padding: 0;
+  /* cursor: pointer; */
+  max-width: 50px;
+  width: 20px;
+  height: 20px;
+}
+
 .player__logo{
   background: none; 
   border: 0; 
@@ -327,6 +338,12 @@ body {
 .volume_icon {
   width: 20px;
   height: 20px;
+}
+
+.playing {
+  transform: scale(1.1);
+  border-color: #ffc600;
+  box-shadow: 0 0 1rem #ffc600;
 }
 
 
@@ -454,29 +471,36 @@ input[type=range]::-moz-range-thumb {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   border: none;
 }
-.dropdown-menu {
-  position: relative;
-  display: inline-block;
+
+#playlist-select {
+  background-color: #2E2E2E;
+  color: lightgray;
+  font-family: "Montserrat", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border-radius: 5px;
+  border-width: 0px;
+  height: 2.5rem;
+  width: 13rem;
+  padding-left: 1rem;
 }
-.menu-content {
-  display: none;
-  position: absolute;
-  background-color: #017575;
-  min-width: 160px;
-  z-index: 1;
+
+#playlist {
+  font-family: "Montserrat", sans-serif;
+  display: unset;
+  background: #7A419B;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #3f4245 0%,#44494d 48%,#5b5b5b 100%);
+  background-size: cover;
+  /* background-repeat: no-repeat; */
+  align-items: unset;
+  justify-content: unset;
 }
-.playlist-names {
-  color: rgb(255, 255, 255);
-  padding: 12px 16px;
-  text-decoration: none;
+
+#playlist-gallery {
   display: block;
-  font-size: 18px;
-  font-weight: bold;
-  border-bottom: 1px solid black;
-}
-.playlist-names:hover {
-  background-color: rgb(8, 107, 46);
-}
-.dropdown-menu:hover .menu-btn {
-  background-color: #3e8e41;
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }

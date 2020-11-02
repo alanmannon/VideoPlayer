@@ -29,29 +29,28 @@
   <!-- TOOLBAR -->
   <div class="toolbar">
     <div class="tool-section" id="tool-color">
-      <p>color</p>
+      <p>color<br>(Q)</p>
       <icon class="material-icons">palette</icon>
       <button class="button-color" id="color-picker">
-        <!-- <input type="color" id="color-picker"></input> -->
       </button>
     </div>
     <div class="tool-section" id="tool-size">
-    <p>SIZE</p>
+    <p>SIZE<br>(W&E)</p>
       <icon class="material-icons">create</icon>
       <!-- <input type="number" id="line-size" value="20"></input> -->
       <input type="range" min="1" max="50" value="25" step="5" class="slider" id="line-size" />
     </div>
     <div class="tool-section" id="tool-reset">
-      <p>reset</p>
-      <button class="button-reset" onclick="clearCanvas()">
+      <p>reset<br>(R)</p>
+      <button class="tool-button" onclick="clearCanvas()" data-key="82" id="clear">
         <icon class="material-icons">
           cached
         </icon>
       </button>
     </div>
-    <div class="tool-section" id="tool-voice" onclick="voice">
-      <p>voice</p>
-      <button class="button-voice"> 
+    <div class="tool-section" id="tool-voice">
+      <p>voice<br>(V)</p>
+      <button class="tool-button" onclick="voiceStart()" data-key="86" id="voice"> 
         <icon class="material-icons">mic</icon>
       </button>
       
@@ -61,21 +60,25 @@
   <div class="player" id="video_player" >
     <canvas class="canvas" id="video_canvas"></canvas>
     <video class="player__video viewer" src="652333414.mp4"></video>
-
+    
     <div class="player__controls">
       <div class="progress">
         <div class="progress__filled"></div>
       </div>
       <button class="player__button toggle" title="Toggle Play">►</button>
-      <img src="volume.svg" class="player__logo" id="volume_image" onclick="toggleMute()" />
-      <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1"></input>
-      <button class="player__button">Speed</button>
-      <input type="range" name="playbackRate" class="player__slider" min="0.5" max="2" step="0.1" value="1"></input>
+      <img src="icons/volume.svg" class="player__logo" id="volume_image" onclick="toggleMute(this)" />
+      <input type="range" name="volume" class="player__slider" min="0" max="1" step="0.05" value="1" id="volume_range"></input>
+      <button class="player__button_speed">Speed</button>
+      <input type="range" name="playbackRate" class="player__slider" min="0.5" max="2" step="0.1" value="1" id="speed_range"></input>
       <button data-skip="-10" class="player__button">« 10s</button>
       <button data-skip="25" class="player__button">25s »</button>
-      <img src="fullscreen.svg" class="player__logo" onclick="toggleFullScreen()"></img>
+      <img src="icons/fullscreen.svg" class="player__logo" onclick="toggleFullScreen()"></img>
     </div>
   </div>
+
+
+  <!-- Icons made by <a href="https://www.flaticon.com/authors/google" title="Google">Google</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a> -->
+
   <script 
     src="scripts.js"></script>
 
