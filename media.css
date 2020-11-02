@@ -51,16 +51,38 @@ body {
 
 .nav strong {
   color: greenyellow;
-  text-shadow: 2px 9px 10px rgba(87, 255, 53, 0.454);
+  text-shadow: 2px 9px 10px rgba(87, 255, 53, 0.262);
+}
+
+.logo {
+  text-align: left;
+  margin-left: 5rem;
+  z-index: 2;
+}
+
+#homelink {
+  font: "Montserrat", sans-serif;
+  text-decoration: none;
+  z-index: 3;
+  font-size: 1em;
+}
+
+#homelink > h1 {
+  font-weight: 400;
+}
+
+
+.logo:hover {
+  text-shadow: 2px 9px 10px rgba(87, 255, 53, 0.461);
+  color: white;
 }
 
 .button-container {
   width: 100%;
   text-align: right;
-  /* background-color: gray; */
   display: inline-block;
-  position: fixed;
   margin-right: 0;
+  z-index: 1;
 }
 
 .nav a {
@@ -93,7 +115,7 @@ body {
 }
 
 .nav a:hover {
-  color: rgb(82, 244, 87) !important;
+  color: rgb(82, 244, 87);
   transition: 0.2s ease-out;
 }
 
@@ -502,5 +524,38 @@ input[type=range]::-moz-range-thumb {
   width: 75%;
   margin-left: auto;
   margin-right: auto;
+  text-align: center;
+}
+
+.hotkeylabels {
+  width: 6rem;
+  margin-right: 3rem;
+}
+
+.hotkeylabels > p {
+  color: gray;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.75em;
+  text-transform: uppercase;
+  margin-bottom: 2.5rem;
+  letter-spacing: 0.2em;
+}
+
+.key {
+  display: inline-block;
+  font-family: "Montserrat", sans-serif;
+  width: 40px;
+  height: 40px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  background-color: rgba(38, 38, 38, 0.2);
+}
+.key > p {
+  display: block;
+  width: 40px;
+  font-family: "Montserrat", sans-serif;
+  color: gray;
+  margin: auto;
+  padding: 20% 0;
   text-align: center;
 }
