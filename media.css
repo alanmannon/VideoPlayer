@@ -156,7 +156,7 @@ body {
 .tool-section > icon {
   display: block;
   text-align: center;
-  color: gray;
+  color: rgb(162, 162, 162);
   margin-bottom: 1rem;
 }
 
@@ -509,7 +509,7 @@ input[type=range]::-moz-range-thumb {
 
 #playlist {
   font-family: "Montserrat", sans-serif;
-  display: unset;
+  display: block;
   background: #7A419B;
   min-height: 100vh;
   background: linear-gradient(135deg, #3f4245 0%,#44494d 48%,#5b5b5b 100%);
@@ -558,4 +558,13 @@ input[type=range]::-moz-range-thumb {
   margin: auto;
   padding: 20% 0;
   text-align: center;
+
+}
+
+#spacekey {
+  width: 80px;
+  height: 30px;
+  font-size: 0.6em;
+  letter-spacing: 0.05em;
+  line-height: 0.1em;
 }
