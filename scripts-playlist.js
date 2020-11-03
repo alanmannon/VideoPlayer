@@ -68,7 +68,6 @@ for (const key in playlistDisplay) {
   playlistString += playlistEntry;
 }
 
-console.log(playlistString);
-
-document.getElementById("playlist-gallery").innerHTML = playlistString;
-
+if (window.location.href === 'http://localhost:8080/playlist.html') {
+  document.getElementById("playlist-gallery").innerHTML = playlistString;
+}

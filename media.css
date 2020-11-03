@@ -24,9 +24,14 @@ body {
   flex-direction: column;
 }
 
-.heading {
+.heading h1 {
   color: rgba(228, 213, 213, 0.712);
-  text-shadow: 1px 1px lightgreen;
+  /* text-shadow: 1px 1px lightgreen; */
+  margin-top: 13rem;
+  font-family: "Montserrat";
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: 0.25;
 }
 
 .nav {
@@ -156,7 +161,7 @@ body {
 .tool-section > icon {
   display: block;
   text-align: center;
-  color: rgb(162, 162, 162);
+  color: rgb(140, 140, 140);
   margin-bottom: 1rem;
 }
 
@@ -505,6 +510,7 @@ input[type=range]::-moz-range-thumb {
   height: 2.5rem;
   width: 13rem;
   padding-left: 1rem;
+  margin-bottom: 5rem;
 }
 
 #playlist {
@@ -524,8 +530,9 @@ input[type=range]::-moz-range-thumb {
   width: 75%;
   margin-left: auto;
   margin-right: auto;
-  text-align: center;
+  text-align: left;
 }
+
 
 .hotkeylabels {
   width: 6rem;
@@ -567,4 +574,9 @@ input[type=range]::-moz-range-thumb {
   font-size: 0.6em;
   letter-spacing: 0.05em;
   line-height: 0.1em;
+}
+
+
+#thumbnail-container {
+  /* margin-top: 10rem; */
 }

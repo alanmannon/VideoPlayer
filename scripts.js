@@ -232,7 +232,7 @@ function voiceStart() {
 }
 
 // Voice Event listener
-voice.addEventListener('click', voiceStart);
+// voice.addEventListener('click', voiceStart);
 
 // voice.addEventListener('click', voiceStart.stop);
 

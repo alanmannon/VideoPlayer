@@ -3,6 +3,7 @@
 
 
 document.cookie = "path=/";
+const query = window.location.search;
 
 var selectPlaylist = "";
 
@@ -48,8 +49,7 @@ const data = findData();
 console.log("PREVIOUS:", previousCookie);
 console.log("DATA:", data);
 
-if (window.location.href !== "http://localhost:8080/library.html") {
-  const query = window.location.search;
+if (window.location.href !== "http://localhost:8080/library.html" && query.includes('?')) {
   console.log(query);
   const videoParameter = query.substring(1);
   console.log(videoParameter);
@@ -154,3 +154,11 @@ function previousPlaylist() {
   var previousPlaylist = document.cookie.split('; ').find(row => row.startsWith('playlist'));
   return previousPlaylist;
 }
+
+// if (query.includes("playlist") {
+// var vid = document.getElementById("videourl");
+// vid.onended = function () {
+
+//   window.location.href = `http://localhost:8080?${videoIndex}`;
+// };
+// }
